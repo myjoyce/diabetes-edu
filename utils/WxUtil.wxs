@@ -1,0 +1,28 @@
+// 用于wxml文件
+
+var stringify = function (obj) {
+  return JSON.stringify(obj);
+}
+
+var arr2str = function (array, separator) {
+  return array.join(separator);
+}
+
+var cutPhone = function(phone) {
+  var frontStr = phone.substring(0,3);
+  var endStr = phone.substring(7);
+  return frontStr+'****'+endStr;
+}
+
+var test = function(arr) {
+  console.log(arr)
+  var length = arr.a;
+  return length;
+}
+
+module.exports = {
+  stringify: stringify,
+  arr2str: arr2str,
+  cutPhone: cutPhone,
+  test: test
+}

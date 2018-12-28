@@ -1,0 +1,46 @@
+<!--书籍列表-->
+<import src='/pages/common/book/bookRow' />
+<import src='/pages/common/loading/loading' />
+<import src='/pages/common/dropmenu/dropmenu' />
+
+<template is='temp-dropmenu' data='{{...$mark.dropMenu}}' />
+<view class='container page-book'>
+  <view class='topbar'>
+    <view class='layout btn-opacity' bindtap='changeLayout'>
+      <image src='{{isGrid?"/assets/images/list_mode_icon.png":"/assets/images/gird_mode_icon.png"}}' mode='widthFix' />
+    </view>
+    <van-row gutter="20">
+      <van-col span="8" offset="8">
+        <van-button type="primary" bind:click="scanCode">扫码加书</van-button>
+      </van-col>
+    </van-row>
+  </view>
+
+  <view class='content'>    
+    <view wx:if='{{isGrid}}' class='book-container'>
+      <block wx:for='{{books}}' wx:key='id'>
+        <view data-title="{{item.title}}"
+          data-id="{{item.id}}"
+          bindtap="bindViewTap">
+          <template 
+            is="item-movie_grid" 
+            data="{{...item}}">
+          </template>
+        </view>
+      </block>
+    </view>
+    
+    <block wx:for='{{books}}' wx:key='id' wx:if='{{!isGrid}}'>
+      <view data-title="{{item.title}}"
+          data-id="{{item._id}}"
+          bindtap="bindViewTap">
+        <template 
+          is="item-movie_row" 
+          data="{{...item}}">
+        </template>
+      </view>
+    </block>
+
+    <template is='loading-more' wx:if="{{loading}}" />
+  </view>
+</view>

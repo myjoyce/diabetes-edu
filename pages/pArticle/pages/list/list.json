@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "com-article": "/components/article/article"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我喜欢的书籍",
+  "usingComponents": {
+    "com-article": "/components/article/article"
+  }
+}

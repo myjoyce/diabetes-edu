@@ -1,0 +1,47 @@
+/* pages/classification/index.wxss */
+.page-category {
+  padding: 12.5rpx;
+}
+.classify {
+  border-left: 0.5rpx solid #ddd;
+  border-top: 0.5rpx solid #ddd;
+  overflow: hidden;
+  zoom: 1;
+  margin: 12.5rpx;
+  background-color: #fff;
+}
+
+.classify .item {
+  width: 25%;
+  border-right: 0.5rpx solid #ddd;
+  border-bottom: 0.5rpx solid #ddd;
+  box-sizing: border-box;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.classify .item.big {
+  height: 176rpx;
+  color: #6f93a2;
+}
+.classify .item.big>text {
+  line-height: 1.8em;
+}
+
+.classify .item .icon {
+  width: 45%;
+  height: 45%;
+}
+
+.small {
+  height: 88rpx;
+  overflow: hidden;
+}
+
+.small>text {
+  max-width: 100%;
+}
+
