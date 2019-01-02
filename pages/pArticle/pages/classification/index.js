@@ -1,64 +1,70 @@
-// 分类查找
-import { Honye } from '../../../../utils/apis.js';
-
+//var api = require('../../utils/api.js')
+var app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    classify: [],
-    loaded: false
+    systemInfo: {},
+    //_api: {},
+    List: [
+      {
+        text:'儿科',
+        imgList: 'http://i1.bvimg.com/673474/cb75adf8f3928714s.jpg'
+      },
+      {
+        text: '妇科',
+        imgList: 'http://i1.bvimg.com/673474/012411cf37d7cb9as.jpg',
+        dbName:'women'
+      },
+      {
+        text: '骨科',
+        imgList: 'http://i1.bvimg.com/673474/c236fcf569159748s.jpg'
+      },
+      {
+        text: '心脏血管疾病',
+        imgList: 'http://i1.bvimg.com/673474/dcc848365d61aaebs.jpg'
+      },
+    ],
+    ListTwo: [
+      {
+        
+        text:['护理学','美容'],
+        imgListTwo :[
+          'http://i1.bvimg.com/673474/d3a4eab94907f0aet.jpg',
+          'http://i1.bvimg.com/673474/fa7f9cabad1dc13et.jpg'
+        ]
+      },
+      {
+        text: ['食物与营养', '心理'],
+        imgListTwo: [
+          'http://i1.bvimg.com/673474/5d7652cff0cfccad.jpg',
+          'http://i1.bvimg.com/673474/012411cf37d7cb9a.jpg'
+        ]
+      },     
+    ],
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-    this.getData();
+    var that = this
+    wx.getSystemInfo(function (res) {
+      that.setData({
+        systemInfo: res
+      })
+    })
+
+ 
   },
 
-  /**
-   * 获取数据
-   */
-  getData: function () {
-    wx.showLoading({
-      title: 'loading...',
-    })
-    let that = this;
-    Honye.get(Honye.CLASSIFY).then(res => {
-      that.modifyData(res);
-      wx.hideLoading();
-    })
-  },
-
-  /**
-   * 调整数据
-   */
-  modifyData: function (classify) {
-    for (let item of classify) {
-      if (item.children.length < 6) {
-        for (let i = 0, length = (6 - item.children.length); i < length; i++) {
-          item.children.push(" ");
-        }
-      } else if ((item.children.length - 6) % 4 !== 0) {
-        for (let i = 0, length = (4 - (item.children.length - 6) % 4); i < length; i++) {
-          item.children.push(" ");
-        }
-      }
-    }
-    this.setData({
-      classify,
-      loaded: true
-    });
+  onPullDownRefresh() {
+    wx.stopPullDownRefresh()
   },
 
   toList(e) {
-    const {item} = e.currentTarget.dataset;
-    if(item!=" ") {
-      wx.navigateTo({
-        url: `/pages/pArticle/pages/list/list?title=${item}`,
-      })
+      const {
+        item
+      } = e.currentTarget.dataset;
+      if (item != " ") {
+        wx.navigateTo({
+          url: `/pages/pArticle/pages/list/list?title=${item.text}&&dbName=${item.dbName}`,
+        })
+      }
     }
-  }
 })

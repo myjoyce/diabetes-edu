@@ -1,6 +1,6 @@
 <!--pages/article/list.wxml-->
 <view class='container page-favlist'>
-  <block wx:for='{{list}}' wx:key='id'>
+  <block wx:for='{{books}}' wx:key='id' bindtap='bindViewTap'>
     <com-article aid='{{item.id}}'
       image='{{item.image}}' 
       title='{{item.title}}' 

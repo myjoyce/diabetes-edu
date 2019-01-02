@@ -38,7 +38,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -55,7 +55,20 @@
 				{
 					"id": -1,
 					"name": "search",
-					"pathName": "pages/search/search"
+					"pathName": "pages/search/search",
+					"query": ""
+				},
+				{
+					"id": 3,
+					"name": "detail",
+					"pathName": "pages/pArticle/pages/details/detail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "classification",
+					"pathName": "pages/pArticle/pages/classification/index",
+					"query": ""
 				}
 			]
 		}

@@ -1,14 +1,17 @@
-<!--pages/classification/index.wxml-->
-<view class='container page-category'>
-  <view wx:for='{{classify}}' class='classify' wx:key='id'>
-    <view class='item big'>
-      <image class='icon' src='{{item.icon}}' mode='widthFix' />
-      <text>{{item.title}}</text>
+
+<view class="section">
+  <view wx:for="{{List}}" class="cla-text-img"  bindtap='toList'>
+    <view class="discover-image" style="background-image:url({{item.imgList}}); width:{{systemInfo.windowWidth-20}}px;height: {{(systemInfo.windowWidth-20)/2.742}}px;"  data-item='{{item}}' bindtap='toList'>
+      {{item.text}}
     </view>
-    <block wx:for='{{item.children}}' wx:key='*this'>
-      <view class='item small {{(item==" ")?"":"btn-bg"}}' data-item='{{item}}' bindtap='toList'>
-        <text class='single-line'>{{item}}</text>
-      </view>
-    </block>
+  </view>
+  <view wx:for="{{ListTwo}}" class="cla-image-two" style="width:{{systemInfo.windowWidth-20}}px;">
+    <view class="discover-image" style="background-image:url({{item.imgListTwo[0]}});width:{{(systemInfo.windowWidth-30)/2}}px;height: {{(systemInfo.windowWidth-30)/2*187/344}}px;"  data-item='{{item}}' bindtap='toList'>
+            {{item.text[0]}}
+    </view>
+    <view class="discover-image" style="background-image:url({{item.imgListTwo[1]}});width:{{(systemInfo.windowWidth-30)/2}}px;height: {{(systemInfo.windowWidth-30)/2*187/344}}px;"  data-item='{{item}}' bindtap='toList'>
+            {{item.text[1]}}
+    </view>
+
   </view>
 </view>

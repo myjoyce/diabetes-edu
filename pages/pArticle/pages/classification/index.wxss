@@ -1,47 +1,26 @@
-/* pages/classification/index.wxss */
-.page-category {
-  padding: 12.5rpx;
-}
-.classify {
-  border-left: 0.5rpx solid #ddd;
-  border-top: 0.5rpx solid #ddd;
-  overflow: hidden;
-  zoom: 1;
-  margin: 12.5rpx;
-  background-color: #fff;
-}
+/* pages/classification/index.wxss*/
 
-.classify .item {
-  width: 25%;
-  border-right: 0.5rpx solid #ddd;
-  border-bottom: 0.5rpx solid #ddd;
-  box-sizing: border-box;
-  float: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+ .section {
+   width: 100%;
+   padding: 0 10px;
+ }
+ .cla-text-img{
+   display: flex;
+ } 
+ .discover-image {
+   display: flex;
+   margin-bottom: 10px;
+   height:300rpx;
+   width:100%;
+   justify-content: center;
+   align-items: center;
+   color:rgb(148, 88, 88);
+   font-size: 48rpx;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+ }
 
-.classify .item.big {
-  height: 176rpx;
-  color: #6f93a2;
-}
-.classify .item.big>text {
-  line-height: 1.8em;
-}
-
-.classify .item .icon {
-  width: 45%;
-  height: 45%;
-}
-
-.small {
-  height: 88rpx;
-  overflow: hidden;
-}
-
-.small>text {
-  max-width: 100%;
-}
+ .cla-image-two {
+   display: flex;
+   justify-content: space-between;
+ }
 
