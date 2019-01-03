@@ -1,5 +1,5 @@
 <!--pages/intheaters/in_theaters.wxml-->
-<import src='/pages/common/movie/bookRow' />
+<import src='/pages/common/book/bookRow' />
 <import src='/pages/common/loading/loading' />
 
 <view class='container page-theatre'>

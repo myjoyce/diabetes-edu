@@ -22,5 +22,6 @@
  .cla-image-two {
    display: flex;
    justify-content: space-between;
+   align-content: space-around;
  }
 
