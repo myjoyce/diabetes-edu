@@ -1,7 +1,8 @@
 // API 
-
+const utils = require('../utils/util.js');
 const HY_HOST = 'https://hongye567.github.io';
 const DB_HOST = 'https://api.douban.com';
+
 
 export const Honye = {
   // 域名
@@ -28,11 +29,11 @@ export const Douban = {
   // 豆瓣热映
   IN_THEATERS: `${DB_HOST}/v2/movie/in_theaters`,
   // 即将上映
-  COMMING: `${DB_HOST}/v2/movie/coming_soon`,
+  COMMING: `${DB_HOST}/v2/book/coming_soon`,
   // 影视条目信息
-  DETAILS: `${DB_HOST}/v2/movie/subject`,
+  DETAILS: `${DB_HOST}/v2/book/subject`,
   // 影视搜索
-  SEARCH: `${DB_HOST}/v2/movie/search`,
+  SEARCH: `${DB_HOST}/v2/book/search`,
 }
 
 Honye.get = (path, params) => {
@@ -75,6 +76,7 @@ Douban.get = (path, params) => {
     })
   })
 }
+
 
 export default {
   Honye,

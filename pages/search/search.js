@@ -1,5 +1,7 @@
 // pages/search/search.js
-import { Douban } from './../../utils/apis.js';
+// import { Douban } from './../../utils/apis.js';
+const api = require('../../utils/api.js');
+const utils = require('../../utils/util.js');
 
 const app = getApp();
 const count = 20;  // 每页加载数据数目
@@ -10,11 +12,15 @@ Page({
    */
   data: {
     inputVal: "",
-    paragraph: '&emsp;人生就是一列开往坟墓的列车，路途上会有很多站，很难有人可以自始至终陪着走完。当陪你的人下车时，即使不舍也该心存感激，然后挥手道别。',
-    result: null,
+    paragraph: '&emsp;生存还是毁灭，这是一个值得思考的问题。',
+    bname:'《哈姆雷特》',
     loading: false,
     pageNo: 0,
-    hasMore: true
+    hasMore: true,
+    totalRecord: 0, //图书总数
+    isInit: true, //是否第一次进入应用
+    loadingMore: false, //是否正在加载更多
+    pageData: [], //图书数据
   },
 
   /**
@@ -22,14 +28,14 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      quote: app.globalData.config.quote
+      // quote: app.globalData.config.quote
     })
   },
 
   clearInput: function () {
     this.setData({
       inputVal: "",
-      result: null
+      pageData: null
     });
   },
   inputTyping: function (e) {
@@ -44,45 +50,81 @@ Page({
   inputConfirm() {
     const that = this;
     const { inputVal } = this.data;
-    if(inputVal.indexOf('hy:')===0) {
-      this.hiddenCommand()
-    } else {
+    if(!inputVal) {
+      wx.showToast({
+        title: '请输出入书名',
+        icon: 'none',
+        duration: 1000
+      });
+      return;
+    } 
       this.setData({
         scrollTop: 0,
         pageNo: 0,
         hasMore: true
       }, () => {
-        that.searchMovie()
+        this.requestData.call(this);
       })
-    }
+    
   },
 
-  /**
-   * 搜索
-   */
-  searchMovie: function (e) {
-    const that = this;
-    const { inputVal, pageNo, result } = this.data;
-    this.setData({
-      loading: true
-    })
-    wx.showLoading({
-      title: 'loading...',
-    })
-    const body = {
-      q: inputVal,
-      start: count * pageNo,
-      count
+/**
+ * 请求图书信息
+ */
+requestData:function() {
+  const q = this.data.inputVal;
+  const start = this.data.pageNo;
+
+  this.setData({
+    loadingMore: true,
+    isInit: false
+  });
+
+  wx.showLoading({
+    title: '加载中',
+  });
+  api.requestSearchBook({
+    q: q,
+    start: start
+  }).then((data) => {
+    wx.hideLoading();
+    if (data.total == 0) {
+      this.setData({
+        loadingMore: false,
+        totalRecord: 0
+      });
+    } else {
+      this.setData({
+        loadingMore: false,
+        pageData: this.data.pageData.concat(data.books),
+        pageNo: start + 1,
+        totalRecord: data.total
+      });
     }
-    Douban.get(Douban.SEARCH, body)
-      .then(res => {
-        that.setData({
-          result: pageNo?[...result, ...res.subjects]:[...res.subjects],
-          loading: false,
-          pageNo: pageNo+1,
-          hasMore: res.total > count*(pageNo+1)
-        })
+  }).catch(_ => {
+    this.setData({
+      loadingMore: false,
+      totalRecord: 0
+    });
+    wx.hideLoading();
+  });
+},
+
+  //跳转到详细页面
+  toDetailPage(event) {
+    const {
+      version,
+      config
+    } = app.globalData;
+    if (version.versionCode <= config.newestVersion) {
+      const {
+        id,
+        title
+      } = event.currentTarget.dataset;
+      wx.navigateTo({
+        url: `/pages/pBook/pages/doudetails/doubookDetails?title=${title}&id=${id}`,
       })
+    }
   },
 
   /**
@@ -98,33 +140,33 @@ Page({
   loadMore: function (e) {
     const { loading, hasMore } = this.data;
     if (!loading && hasMore) {
-      this.searchMovie()
+      this.requestData.call(this);
     }
   },
 
   /**
    * 隐藏命令
    */
-  hiddenCommand() {
-    const { inputVal } = this.data;
-    const command = inputVal.split('hy:')[1].trim().toUpperCase();
-    switch(command) {
-      case 'OPEN MARK':  // 打开 Mark 小程序
-        wx.navigateToMiniProgram({
-          appId: 'wx5363d9bd45509430',
-        })
-        break;
-      case 'OPEN TEST':  // 打开测试页
-        wx.navigateTo({
-          url: '/pages/first/first',
-        })
-        break;
-      default:
-        wx.showToast({
-          title: '命令错误！',
-        })
-        break;
-    }
-  }
+  // hiddenCommand() {
+  //   const { inputVal } = this.data;
+  //   const command = inputVal.split('hy:')[1].trim().toUpperCase();
+  //   switch(command) {
+  //     case 'OPEN MARK':  // 打开 Mark 小程序
+  //       wx.navigateToMiniProgram({
+  //         appId: 'wx5363d9bd45509430',
+  //       })
+  //       break;
+  //     case 'OPEN TEST':  // 打开测试页
+  //       wx.navigateTo({
+  //         url: '/pages/first/first',
+  //       })
+  //       break;
+  //     default:
+  //       wx.showToast({
+  //         title: '命令错误！',
+  //       })
+  //       break;
+  //   }
+  // }
 
 })

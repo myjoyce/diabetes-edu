@@ -4,9 +4,9 @@
 
 <view class='container page-theatre'>
   <view class='navbar'>
-    <view class='{{currentNav==0?"active":""}}' bindtap='changeSwiper' data-nav='{{0}}'>热映</view>
+    <view class='{{currentNav==0?"active":""}}' bindtap='changeSwiper' data-nav='{{0}}'>畅销图书</view>
     <view class='divider'></view>
-    <view class='{{currentNav==1?"active":""}}' bindtap='changeSwiper' data-nav='{{1}}'>待映</view>
+    <view class='{{currentNav==1?"active":""}}' bindtap='changeSwiper' data-nav='{{1}}'>新书</view>
   </view>
   <swiper class='swiper' bindchange='onSwiperChange' current='{{currentNav}}'>
     <swiper-item>

@@ -8,22 +8,22 @@ Page({
     List: [
       {
         text:'儿科',
-        imgList: 'http://i1.bvimg.com/673474/cb75adf8f3928714s.jpg',
+        imgList: '../../../../assets/images/classification/1.jpg',
         dbName:'pediatric'
       },
       {
         text: '妇科',
-        imgList: 'http://i1.bvimg.com/673474/012411cf37d7cb9as.jpg',
+        imgList: '../../../../assets/images/classification/2.jpg',
         dbName:'women'
       },
       {
         text: '骨科',
-        imgList: 'http://i1.bvimg.com/673474/c236fcf569159748s.jpg',
+        imgList: '../../../../assets/images/classification/3.jpg',
         dbName: 'orthopaedic'
       },
       {
         text: '心脏血管疾病',
-        imgList: 'http://i1.bvimg.com/673474/dcc848365d61aaebs.jpg',
+        imgList: '../../../../assets/images/classification/4.jpg',
         dbName:'heart'
       },
     ],
@@ -31,16 +31,16 @@ Page({
       {
         text: ['护理学', '美容'],
         imgListTwo: [
-            'http://i1.bvimg.com/673474/d3a4eab94907f0aet.jpg',
-            'http://i1.bvimg.com/673474/fa7f9cabad1dc13et.jpg'
+            '../../../../assets/images/classification/5.jpg',
+            '../../../../assets/images/classification/6.jpg'
           ],
         dbName: ['nursing', 'beauty']
       }, 
       {
         text: ['食物与营养', '心理'],
         imgListTwo: [
-            'http://i1.bvimg.com/673474/5d7652cff0cfccad.jpg',
-            'http://i1.bvimg.com/673474/012411cf37d7cb9a.jpg'
+            '../../../../assets/images/classification/7.jpg',
+            '../../../../assets/images/classification/4.jpg'
           ],
         dbName: ['food', 'psychological']
       }

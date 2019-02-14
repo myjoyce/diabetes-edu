@@ -1,5 +1,5 @@
 <!--pages/search/search.wxml-->
-<import src='./../common/movie/bookRow' />
+<import src='./../common/book/bookRow' />
 
 <view class='container page-search'>
   <view>
@@ -8,7 +8,7 @@
         <view class="weui-search-bar__box">
           <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
           <input type="text" class="weui-search-bar__input" 
-            placeholder="输入影名/演员" value="{{inputVal}}" 
+            placeholder="输入书名/作者" value="{{inputVal}}" 
             focus bindinput="inputTyping" confirm-type='search'
             bindconfirm='inputConfirm'
           />
@@ -24,19 +24,19 @@
     <scroll-view scroll-y bindscrolltolower='loadMore'
       enable-back-to-top scroll-top='{{scrollTop}}' scroll-with-animation
     >
-      <view class='paragraph' wx:if='{{!result}}'>
+      <view class='paragraph' wx:if='{{isInit}}'>
         <image src='/assets/images/book_search_word_icon.png' mode='widthFix' />
-        <text space='nbsp' decode>&emsp;{{quote.content}}</text>
-        <text>---{{quote.source}}</text>
+        <text space='nbsp' decode>&emsp;{{paragraph}}</text>
+        <text>---{{bname}}</text>
       </view>
-      <view wx:elif='{{result.length>0}}'>
-        <block wx:for='{{result}}' wx:key='id'>
-          <navigator url='/pages/pBook/pages/details/bookDetails?title={{item.title}}&id={{item.id}}'>
+      <view wx:elif='{{pageData.length>0&&!isInit}}'>
+        <block wx:for='{{pageData}}' wx:key='id'>
+          <view data-title="{{item.title}}" data-id="{{item.id}}" bindtap="toDetailPage">
             <template 
               is="item-movie_row" 
               data="{{...item}}">
             </template>
-          </navigator>
+          </view>
         </block>
       </view>
       <view wx:else class='none'>

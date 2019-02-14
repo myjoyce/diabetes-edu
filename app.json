@@ -58,6 +58,7 @@
       "pages": [
         "pages/cards/card",
         "pages/details/bookDetails",
+        "pages/doudetails/doubookDetails",
         "pages/intheaters/in_theaters",
         "pages/sources/sources",
         "pages/trailers/trailers"
