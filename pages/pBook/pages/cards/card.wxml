@@ -29,7 +29,7 @@
   <navigator class='look' hover-class='hover-opacity'
     url='/pages/pMovie/pages/details/movieDetails?id={{cards[current].movieId}}'>
     <image class='icon' src='/assets/images/daily_card_detail_icon.png'></image>
-    <text>查看书籍</text>
+    <text>下载卡片</text>
   </navigator>
   <view class='action-right'>
     <view class='count'>

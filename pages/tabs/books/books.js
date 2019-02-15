@@ -85,8 +85,9 @@ Page({
     const { version, config } = app.globalData;
     if(version.versionCode <= config.newestVersion) {
       const { id, title } = event.currentTarget.dataset;
+      let dbName = 'mybook';
       wx.navigateTo({
-        url: `/pages/pBook/pages/details/bookDetails?title=${title}&id=${id}`,
+        url: `/pages/pBook/pages/details/bookDetails?title=${title}&id=${id}&dbName=${dbName}`,
       })
     }
   },

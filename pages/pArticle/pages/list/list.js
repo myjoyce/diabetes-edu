@@ -17,6 +17,9 @@ Page({
    */
   onLoad: function (options) {
     const {title,dbName} = options;
+    this.setData({
+      dbName: dbName
+    })
     wx.setNavigationBarTitle({ title })
     this.getBooks(dbName);
     
@@ -75,7 +78,7 @@ Page({
         title
       } = event.currentTarget.dataset;
       wx.navigateTo({
-        url: `/pages/pBook/pages/details/bookDetails?title=${title}&id=${id}`,
+        url: `../../../pBook/pages/details/bookDetails?title=${title}&id=${id}&dbName=${this.data.dbName}`,
       })
     }
   },

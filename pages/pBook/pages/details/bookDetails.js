@@ -14,7 +14,7 @@ Page({
     comments_count: 0,
     comments: [],
     loaded: false,
-    isFold: true
+    isFold: true,
   },
 
   /**
@@ -32,10 +32,12 @@ Page({
     wx.setNavigationBarTitle({
       title: options.title || '详情',
     })
-
+    this.setData({
+      dbName:options.dbName
+    })
     this.setData({ id: options.id })
     this.getDetails(options.id);
-    this.getComments(options.id);
+    // this.getComments(options.id);
   },
   
   /**
@@ -46,7 +48,8 @@ Page({
       title: 'loading...',
     });
     let _this = this;
-    db.collection('mybook').doc(id).get().then(res => {
+    debugger
+    db.collection(_this.data.dbName).doc(id).get().then(res => {
       const book = res.data;
       let pubdates = '';
       // for (let item of res.pubdates) {
@@ -69,24 +72,27 @@ Page({
       wx.setNavigationBarTitle({
         title: res.data.title,
       })
+    }).catch(err=>{
+      console.log(err);
+      
     })
   },
 
   /**
    * 获取影视短评
    */
-  getComments: function(id) {
-    const that = this;
-    db.collection('mybook').doc(id).get({
-        start: 0,
-        count: 6
-    }).then(res => {
-        that.setData({
-          comments: res.comments
-        })
-      }
-    )
-  },
+  // getComments: function(id) {
+  //   const that = this;
+  //   db.collection('mybook').doc(id).get({
+  //       start: 0,
+  //       count: 6
+  //   }).then(res => {
+  //       that.setData({
+  //         comments: res.comments
+  //       })
+  //     }
+  //   )
+  // },
 
   /**
    * 折叠开关
@@ -101,16 +107,16 @@ Page({
   /**
    * 剧照预览
    */
-  onImagePre(e) {
-    const { img } = e.currentTarget.dataset;
-    const { details } = this.data;
-    let urls = [];
-    for(let item of details.photos) {
-      urls.push(item.image)
-    }
-    wx.previewImage({
-      current: img,
-      urls
-    })
-  }
+  // onImagePre(e) {
+  //   const { img } = e.currentTarget.dataset;
+  //   const { details } = this.data;
+  //   let urls = [];
+  //   for(let item of details.photos) {
+  //     urls.push(item.image)
+  //   }
+  //   wx.previewImage({
+  //     current: img,
+  //     urls
+  //   })
+  // }
 })
