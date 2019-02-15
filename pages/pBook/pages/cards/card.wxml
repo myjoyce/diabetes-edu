@@ -13,10 +13,10 @@
         mode='aspectFill'>
         </image>
         <view class='card-text'>
-          <text wx:if='{{item.tags}}'>{{item.tags}}\n\n</text>
+          <text wx:if='{{item.quote}}'>{{item.quote}}\n\n</text>
           <text wx:else class='place-text'></text>
           <view class='source'>
-            <text  wx:if='{{item.author}}'>——{{item.author}}</text>
+            <text  wx:if='{{item.author}}'>——{{item.author[0]}}</text>
             <text wx:else class='place-source'></text>
           </view>
         </view>
@@ -26,11 +26,10 @@
 </swiper>
 
 <view class='action'>
-  <navigator class='look' hover-class='hover-opacity'
-    url='/pages/pMovie/pages/details/movieDetails?id={{cards[current].movieId}}'>
+  <view class='look' hover-class='hover-opacity' bindtap="saveCard">
     <image class='icon' src='/assets/images/daily_card_detail_icon.png'></image>
     <text>下载卡片</text>
-  </navigator>
+  </view>
   <view class='action-right'>
     <view class='count'>
       <comp-btnFav checked='{{!!(cards[current].liked)}}' bindchange='onFavChange' />
@@ -44,4 +43,8 @@
       <text>{{cards[current].shareCount||0}}</text>
     </view>
   </view>
+</view>
+<!-- 画布大小按需定制 -->
+<view style='width:0px;height:0px;overflow:hidden;'>
+    <canvas canvas-id="cardCanvas" style="width:297px;height:418px"></canvas>
 </view>
