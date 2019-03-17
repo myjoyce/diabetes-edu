@@ -1,52 +1,34 @@
-<!--pages/article/detail.wxml 影单详情-->
-<import src="/pages/common/wxParse/wxParse.wxml"/>
-<import src='/pages/common/share/share.wxml' />
-
-<template is='com-share' data='{{...$mark.share}}'/>
-
-<view class='container page-article'>
-  <scroll-view class='scroll' scroll-y enable-back-to-top>
-  <view class='bg-title'>
-    <image class='bg-img' src='{{detail.image}}' mode='widthFix' />
-    <view class='gradient'>
-      <text class='title'>{{detail.title}}</text>
-    </view> 
+<view>
+  <view class="header-cover" wx:if="{{news.cover}}">
+    <image mode="aspectFill" style="height:100%" src="{{news.cover}}"></image>
+    <view class="mask" data-src="{{news.cover}}" bindtap="previewImgEvent"></view>
+    <view class="desc">
+      <text>{{news.title}}</text>
+    </view>
+    <text class="cover-source">{{news.image_source}}</text>
   </view>
-
-  <!-- 撰稿人信息 hidden -->
-  <view class='writer' hidden>
-    <view>
-      <image class='avatar' src='{{detail.writer.avatar}}' />
-      <view class='personal'>
-        <text class='name'>红叶秋鸣</text>
-        <text class='motto'>影，乐赏俞乐，悲赏愈悲</text>
+  <view class="black-desc" wx:else>
+    <text>{{news.title}}</text>
+  </view>
+  <view style="padding-bottom: 150rpx;">
+    <block wx:if="{{news.content}}">
+      <view class="article">
+        <view class="title" wx:if="{{news.title &&  news.title != ''}}">
+          <text>{{news.title}}</text>
+        </view>
+        <view class="author-info" wx:if="{{(news.avatar &&  news.avatar != '') || (news.author &&  news.author != '') || (news.bio &&  news.bio != '')}}">
+          <image wx:if="{{news.avatar &&  news.avatar != ''}}" class="avatar" src="{{news.avatar}}"></image>
+          <text wx:if="{{news.author &&  news.author != ''}}" class="author-name">
+            {{news.author}}
+          </text>
+          <text wx:if="{{news.bio &&  news.bio != ''}}" class="author-mark">{{news.bio}}</text>
+        </view>
+        <view class="content" wx:if="{{news.content &&  news.content.length > 0}}">
+            <block>
+              <text>{{news.content}}</text>
+            </block>
+        </view>
       </view>
-    </view>
-    <view class='footer'>
-      <text>Mark.撰稿人</text>
-    </view>
-  </view>
-
-  <view class='content'>
-    <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
-  </view>
-  </scroll-view>
-
-  <view class='bottom-actions'>
-    <view class='flex-1' capture-bind:tap='handleFavChange'>
-      <comp-btnFav checked='{{checked}}' width='1.2em' height='1.2em'
-        iconNormal='/assets/images/movie_list_detail_like_unchecked.png'
-        iconChecked='/assets/images/movie_list_detail_like_checked.png'
-      />
-      <text>12</text>
-    </view>
-    <view class='flex-1' bindtap='handleComment'>
-      <image class='icon' src='/assets/images/movie_list_comment_icon.png' mode='widthFix' />
-      <text>12</text>
-    </view>
-    <view class='flex-1' bindtap='handleShare'>
-      <image class='icon' src='/assets/images/movie_list_detail_share.png' mode='widthFix' />
-      <text>12</text>
-    </view>
+    </block>
   </view>
 </view>

@@ -58,17 +58,21 @@ Page({
     })
   },
 
-  onBannerTap(event) {
-    const { banners } = this.data
-    const { index }=event.currentTarget.dataset
-    const urls = [];
-    for(let item of banners) {
-      urls.push(item.image)
-    }
-    wx.previewImage({
-      current: urls[index],
-      urls,
-    })
+  onBannerTap(e) {
+    // const { banners } = this.data
+    // const { index }=event.currentTarget.dataset
+    // const urls = [];
+    // for(let item of banners) {
+    //   urls.push(item.image)
+    // }
+    // wx.previewImage({
+    //   current: urls[index],
+    //   urls,
+    // })
+    const {id} = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `../../pArticle/pages/details/detail?id=${id}`,
+    });
   },
 
   toDropDown: function() {

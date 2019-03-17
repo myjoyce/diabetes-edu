@@ -1,123 +1,74 @@
-// 文章详情
-import { Honye } from '../../../../utils/apis'
-import WxParse from '../../../common/wxParse/wxParse'
-import { $markShare } from '../../../common/index'
-import wxCloud from '../../../../utils/wxCloud'
-
-const db = wx.cloud.database()
-
+const db = wx.cloud.database();
+var app = getApp();
 Page({
-
     data: {
-        detail: null,
-        checked: false
+        // id: '', //当前日报id
+        news: {}, //日报详情
+        extraInfo: null,
+
     },
 
-    /** 生命周期函数--监听页面加载 */
-    onLoad(options) {
-        const id = Number(options.id)
+    //获取列表残过来的参数 id：日报id， theme：是否是主题日报内容（因为主题日报的内容有些需要单独解析）
+    onLoad:function(options) {
+
         this.setData({
-            articleID: id,
-        })
-        this.getDetail(id)
+            id: options.id
+        });
+        this.getDetails(options.id);
     },
 
-    /**
-     * 获取详情
-     * @param {String} id 文章 ID
-     */
-    getDetail(id) {
-        wx.showLoading({
-            title: 'loading...',
-        })
-        Promise.all([
-            Honye.get(`${Honye.ARTICLE_DETAIL}/${id}`),
-            wxCloud('getArticleDetails', { id }, false),
-        ]).then(([res1, res2]) => {
-            this.setData({
-                detail: res1,
-                checked: res2.data,
-            }, () => {
-                WxParse.wxParse('article', 'html', res1.content, this)
-            })
-            wx.hideLoading()
-        })
+
+
+    //现在图片预览不支持调试显示，看不到效果
+    //图片预览[当前是当前图片，以后会考虑整篇日报的图片预览]
+    previewImgEvent(e) {
+        let src = e.currentTarget.dataset.src;
+        if (src && src.length > 0) {
+            wx.previewImage({
+                urls: [src]
+            });
+        }
     },
 
-    /** 💓 / 💔 */
-    handleFavChange(e) {
-        wxCloud('favArticle', {
-            id: this.data.articleID,
-        }).then( res => {
-            const { checked } = this.data;
-            this.setData({
-                checked: !checked
-            })
-            wx.showToast({
-                title: res.message,
-            })
-        })
-    },
 
-    /** 评论 */
-    handleComment(e) {
-        wx.showToast({
-            title: '评论',
-        })
-    },
+  /**
+   * 获取文章详情
+   */
+  getDetails: function (id) {
+      wx.showLoading({
+          title: 'loading...',
+      });
+      let _this = this;
+      db.collection('banners').doc(id).get().then(res => {
 
-    /** 分享 */
-    handleShare(e) {
-        $markShare.show({
-            titleText: '',
-            buttons: [{
-                    iconPath: '/assets/images/weixin_icon.png',
-                    title: '微信好友',
-                    openType: 'share'
-                },
-                {
-                    iconPath: '/assets/images/weixin_circle_icon.png',
-                    title: '微信朋友圈'
-                },
-                {
-                    iconPath: '/assets/images/qq_icon.png',
-                    title: 'QQ好友'
-                },
-                {
-                    iconPath: '/assets/images/qq_zone_icon.png',
-                    title: 'QQ空间'
-                },
-                {
-                    iconPath: '/assets/images/weibo_icon.png',
-                    title: '微博'
-                },
-                {
-                    iconPath: '/assets/images/copy_link_icon.png',
-                    title: '复制链接'
-                },
-                {
-                    iconPath: '/assets/images/share_more_icon.png',
-                    title: '更多'
-                },
-            ],
-            buttonClicked(index, item) {
-                if (!item.openType)
-                    if (index == 5) {
-                        wx.setClipboardData({
-                            data: 'https://github.com/Hongye567/weapp-mark',
-                            success: res => {
-                                wx.showToast({
-                                    title: '已复制到剪贴板',
-                                })
-                            }
-                        })
-                    } else {
-                        wx.showModal({
-                            content: item.title,
-                        })
-                    }
-                return true
-            }
-        })
-    }
-})
+        //   const news = res.data;
+        //   let pubdates = '';
+          // for (let item of res.pubdates) {
+          //   if (item.indexOf("中国") > 0) {
+          //     pubdates = item + "上映";
+          //   }
+          // }
+        //   let casts = [];
+          // for (let item of book.casts) {
+          //   casts.push(item.name);
+          // }
+          wx.hideLoading();
+          _this.setData({
+              news: res.data,
+            //   pubdates,
+            //   casts: casts.join(' / '),
+              loaded: true,
+            //   comments_count: book.comments_count
+          });
+          wx.setNavigationBarTitle({
+              title: res.data.title,
+          })
+      }).catch(err => {
+          console.log(err);
+
+      })
+  },
+});
+
+
+

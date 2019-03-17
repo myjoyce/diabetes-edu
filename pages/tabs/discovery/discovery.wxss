@@ -30,6 +30,7 @@ page {
 .banner {
   height: 450rpx;
   background-color: #eee;
+  position: relative;
 }
 .slide-image {
   display: block;
@@ -46,4 +47,13 @@ page {
 .article-item-container {
   margin-top: 15rpx;
   border-bottom: .5px solid #ddd;
+}
+.topTitle{
+  height:100rpx;
+  color:white;
+  position:absolute;
+  top:150px;
+  width:100%;
+  background:rgba(0, 0, 0, 0.3);
+  text-align: center;
 }

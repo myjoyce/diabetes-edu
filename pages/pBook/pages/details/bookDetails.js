@@ -48,7 +48,6 @@ Page({
       title: 'loading...',
     });
     let _this = this;
-    debugger
     db.collection(_this.data.dbName).doc(id).get().then(res => {
       const book = res.data;
       let pubdates = '';

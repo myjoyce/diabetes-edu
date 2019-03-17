@@ -21,9 +21,11 @@
         circular>
         <block wx:for="{{banners}}" wx:key="id">
           <swiper-item>
-            <image data-index='{{index}}' src="{{item.cover}}" class="slide-image"  bindtap='onBannerTap'/>
+            <image data-index='{{index}}' src="{{item.cover}}" class="slide-image" data-id="{{item._id}}" bindtap='onBannerTap'/>   
+            <div class="topTitle">{{item.title}}</div>        
           </swiper-item>
         </block>
+
       </swiper>
 
       <view class="kind-container">
