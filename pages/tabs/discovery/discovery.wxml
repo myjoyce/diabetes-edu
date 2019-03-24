@@ -53,7 +53,7 @@
       </view>
 
       <block wx:for="{{articles}}" wx:key='id'>
-        <navigator class='article-item-container' url='/pages/pArticle/pages/details/detail?id={{item.id}}'>
+        <navigator class='article-item-container' url='/pages/pArticle/pages/details/detail?id={{item._id}}'>
           <template is="commingItem" data="{{...item}}" />
         </navigator>
       </block>

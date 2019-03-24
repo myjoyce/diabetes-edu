@@ -9,11 +9,10 @@
     <view class='layout btn-opacity' bindtap='changeLayout'>
       <image src='{{isGrid?"/assets/images/list_mode_icon.png":"/assets/images/gird_mode_icon.png"}}' mode='widthFix' />
     </view>
-    <van-row gutter="20">
-      <van-col span="8" offset="8">
-        <van-button type="primary" bind:click="scanCode">扫码加书</van-button>
-      </van-col>
-    </van-row>
+    <view class='scanCode' bindtap='scanCode'>
+      <text class="scanCode_text">扫码加书</text>
+      <view class="plus-icon"></view>      
+    </view>
   </view>
 
   <view class='content'>    

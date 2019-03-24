@@ -1,7 +1,3 @@
 {
-  "navigationBarTitleText": "文章详情",
-  "disableScroll": true,
-  "usingComponents": {
-    "comp-btnFav": "/components/btn-fav/FavButton"
-  }
+  "navigationBarTitleText": "文章详情"
 }
