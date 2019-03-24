@@ -14,7 +14,7 @@
 
 <template name="commingItem">
   <view class='item-article'>
-    <comp-preImg src='{{subtitle}}' mode='widthFix' height='450rpx' />
+    <comp-preImg src='{{cover}}' mode='aspectFill' height='450rpx' />
     <view class='com-desc'>
       <text class='com-title'>{{title}}</text>
       <view class='count-like'>
