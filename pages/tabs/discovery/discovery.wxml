@@ -7,7 +7,7 @@
     <view class='search-bar'>
       <view class='search-radius btn-opacity'>
         <icon type='search' size='14'></icon>
-        <text>搜索</text>
+        <text>糖友圈饮食宜忌查询</text>
       </view>
     </view>
   </navigator>

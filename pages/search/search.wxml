@@ -8,7 +8,7 @@
         <view class="weui-search-bar__box">
           <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
           <input type="text" class="weui-search-bar__input" 
-            placeholder="输入书名/作者" value="{{inputVal}}" 
+            placeholder="输入食物名称" value="{{inputVal}}" 
             focus bindinput="inputTyping" confirm-type='search'
             bindconfirm='inputConfirm'
           />
@@ -25,24 +25,55 @@
       enable-back-to-top scroll-top='{{scrollTop}}' scroll-with-animation
     >
       <view class='paragraph' wx:if='{{isInit}}'>
-        <image src='/assets/images/book_search_word_icon.png' mode='widthFix' />
-        <text space='nbsp' decode>&emsp;{{paragraph}}</text>
-        <text>---{{bname}}</text>
+        <text class="paragraph_text">{{paragraph}}</text>
+        <text class="hotsearch">{{hotsearch}}</text>
+        <view class="hottag">
+          <view class="hotitem" wx:for='{{hotitem}}' wx:key="item" bindtap='goDetail' data-name="{{item}}">{{item}}</view>
+        </view>
       </view>
-      <view wx:elif='{{pageData.length>0&&!isInit}}'>
-        <block wx:for='{{pageData}}' wx:key='id'>
-          <view data-title="{{item.title}}" data-id="{{item.id}}" bindtap="toDetailPage">
-            <template 
-              is="item-movie_row" 
-              data="{{...item}}">
-            </template>
-          </view>
-        </block>
+      <view wx:elif='{{pageData.length}}'>
+          <view class="food_content">
+            <view class="food_info">
+              <view class="info_type">
+                <image class="info_img" src="../../assets/images/foodSearch/calorie.png" mode="aspectFill" />
+                <text>卡路里</text>
+                <text>{{pageData.kCal}}Kcal</text>
+              </view>
+              <view class="info_type">
+                <image class="info_img" src="../../assets/images/foodSearch/carbohydrate.png" mode="aspectFill" />
+                <text>碳水化合物</text>
+                <text>{{pageData.CHO}}g/u</text>
+              </view>
+              <view class="info_type">
+                <image class="info_img" src="../../assets/images/foodSearch/protein.png" mode="aspectFill" />
+                <text>蛋白质</text>
+                <text>{{pageData.PR}}</text>
+              </view>
+            </view>
+            <view class="Stan_advice">
+              <view class="Stan_advice_up">
+                <image class="Stan_advice_icon" src="../../assets/images/foodSearch/intoStandard.png" mode="aspectFill" />
+                <text>摄入标准</text>
+              </view>
+              <text>{{pageData.ADI}}</text>
+            </view>
+            <view class="Stan_advice">
+              <view class="Stan_advice_up">
+                <image class="Stan_advice_icon" src="../../assets/images/foodSearch/advice.png" mode="aspectFill" />
+                <text>饮食建议</text>
+              </view>
+              <text>{{pageData.advice}}</text>
+            </view>
+            <text class="food_from">根据中国糖尿病营养治疗指南定制</text>
+          </view>        
+      </view>
+      <view wx:elif='{{inputVal.length<=0}}' class='none'>
+        <text>请输入关键字搜索</text>
       </view>
       <view wx:else class='none'>
         <image src='/assets/images/search_empty_icon.png' mode='widthFix' />
-        <text>抱歉，未找到相关书籍</text>
-        <text>输入书名/作者</text>
+        <text>抱歉，未找到相关食物</text>
+        <text>请输入关键字搜索</text>
       </view>
     </scroll-view>
   </view>

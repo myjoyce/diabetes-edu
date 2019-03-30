@@ -3,8 +3,9 @@
 const api = require('../../utils/api.js');
 const utils = require('../../utils/util.js');
 
-const app = getApp();
-const count = 20;  // 每页加载数据数目
+const db = wx.cloud.database();
+// const app = getApp();
+// const count = 20;  // 每页加载数据数目
 Page({
 
   /**
@@ -12,15 +13,16 @@ Page({
    */
   data: {
     inputVal: "",
-    paragraph: '&emsp;生存还是毁灭，这是一个值得思考的问题。',
-    bname:'《哈姆雷特》',
+    paragraph: '想知道哪些食物糖尿病人能吃、哪些不能吃、吃多少？直接输入你想了解的关键词，比如“苹果”、“香蕉”就会出来对应的结果喔',
+    hotsearch:'热门搜索',
+    hotitem:['苹果','香蕉','红薯','南瓜','柚子','花生','牛奶','玉米'],
     loading: false,
-    pageNo: 0,
-    hasMore: true,
-    totalRecord: 0, //图书总数
+    // pageNo: 0,
+    // hasMore: true,
+    // totalRecord: 0, //图书总数
     isInit: true, //是否第一次进入应用
-    loadingMore: false, //是否正在加载更多
-    pageData: [], //图书数据
+    // loadingMore: false, //是否正在加载更多
+    pageData: [], //食物详情
   },
 
   /**
@@ -52,7 +54,7 @@ Page({
     const { inputVal } = this.data;
     if(!inputVal) {
       wx.showToast({
-        title: '请输出入书名',
+        title: '请输出入食物名称',
         icon: 'none',
         duration: 1000
       });
@@ -60,72 +62,53 @@ Page({
     } 
       this.setData({
         scrollTop: 0,
-        pageNo: 0,
-        hasMore: true
+        // pageNo: 0,
+        // hasMore: true
       }, () => {
         this.requestData.call(this);
       })
     
   },
-
+  goDetail:function(event){
+    const {
+      name
+    } = event.currentTarget.dataset;
+    this.setData({
+      // loadingMore: true,
+      inputVal:name
+    });
+    this.requestData.call(this);
+  },
 /**
- * 请求图书信息
+ * 请求食物详情
  */
 requestData:function() {
+  let _this = this;
   const q = this.data.inputVal;
-  const start = this.data.pageNo;
+  // const start = this.data.pageNo;
 
-  this.setData({
-    loadingMore: true,
+  _this.setData({
+    // loadingMore: true,
     isInit: false
   });
 
   wx.showLoading({
     title: '加载中',
   });
-  api.requestSearchBook({
-    q: q,
-    start: start
-  }).then((data) => {
+
+  db.collection('foodSearch').where({
+    name:q,
+  }).get().then(res=>{
+    const pageData = res.data[0];
+    _this.setData({
+      pageData: pageData
+    })
+    console.log(pageData);
+    
     wx.hideLoading();
-    if (data.total == 0) {
-      this.setData({
-        loadingMore: false,
-        totalRecord: 0
-      });
-    } else {
-      this.setData({
-        loadingMore: false,
-        pageData: this.data.pageData.concat(data.books),
-        pageNo: start + 1,
-        totalRecord: data.total
-      });
-    }
-  }).catch(_ => {
-    this.setData({
-      loadingMore: false,
-      totalRecord: 0
-    });
-    wx.hideLoading();
-  });
+    })
 },
 
-  //跳转到详细页面
-  toDetailPage(event) {
-    const {
-      version,
-      config
-    } = app.globalData;
-    if (version.versionCode <= config.newestVersion) {
-      const {
-        id,
-        title
-      } = event.currentTarget.dataset;
-      wx.navigateTo({
-        url: `/pages/pBook/pages/doudetails/doubookDetails?title=${title}&id=${id}`,
-      })
-    }
-  },
 
   /**
    * 取消返回
@@ -134,39 +117,5 @@ requestData:function() {
     wx.navigateBack()
   },
 
-  /**
-   * 触底加载更多
-   */
-  loadMore: function (e) {
-    const { loading, hasMore } = this.data;
-    if (!loading && hasMore) {
-      this.requestData.call(this);
-    }
-  },
-
-  /**
-   * 隐藏命令
-   */
-  // hiddenCommand() {
-  //   const { inputVal } = this.data;
-  //   const command = inputVal.split('hy:')[1].trim().toUpperCase();
-  //   switch(command) {
-  //     case 'OPEN MARK':  // 打开 Mark 小程序
-  //       wx.navigateToMiniProgram({
-  //         appId: 'wx5363d9bd45509430',
-  //       })
-  //       break;
-  //     case 'OPEN TEST':  // 打开测试页
-  //       wx.navigateTo({
-  //         url: '/pages/first/first',
-  //       })
-  //       break;
-  //     default:
-  //       wx.showToast({
-  //         title: '命令错误！',
-  //       })
-  //       break;
-  //   }
-  // }
 
 })

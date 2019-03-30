@@ -34,6 +34,34 @@ page,
   display: flex;
   flex-direction: column;
 }
+.page-search .content .paragraph .paragraph_text {
+  text-align: center;
+  font-size: 13px;
+  color:gray;
+}
+.page-search .content .paragraph .hotsearch{
+  width:70px;
+  height:30px;
+  font-size: 16px;
+  color: black;
+}
+.page-search .content .paragraph .hottag{
+  display: flex;
+  flex-flow:row wrap;
+  /* flex-direction: row; */
+  justify-content:space-around;
+  
+}
+.page-search .content .paragraph .hottag .hotitem{
+  width:50px;
+  height:30px;
+  background: white;
+  color:gray;
+  font-size: 14px;
+  margin-right: 10px;
+  margin-bottom:10px;
+  text-align: center;
+}
 .content .paragraph>image {
   width: 1.5em;
   height: 1.5em;
@@ -62,4 +90,62 @@ page,
   width: 100%;
   font-size: .9em;
   border-radius: 5px;
+}
+
+.food_content{
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+}
+.food_info{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top:20px;
+  margin-bottom: 20px;
+}
+.info_type{
+  width:90px;
+  height:90px;
+  background: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.info_type .info_img{
+  width:30px;
+  height:30px;
+}
+.info_type .info_name,
+.info_type .info_number{
+  width:10px;
+  height: 10px;
+  color:gray;
+}
+.Stan_advice{
+  width:270px;
+  background: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin:0 auto;
+  margin-bottom:15px;
+  padding:15px;
+
+}
+.Stan_advice .Stan_advice_up {
+  display: flex;
+  flex-direction: row;
+}
+.Stan_advice .Stan_advice_up .Stan_advice_icon{
+  width:30px;
+  height:30px;
+  margin-left:5px;
+  margin-right: 5px;
+}
+.food_from{
+  font-size: 12px;
+  color:gray;
+  margin:0 auto;
 }

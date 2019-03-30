@@ -15,7 +15,7 @@
   </view>
 
   <view class='row-list'>
-    <template is='row-cell' data='{{iconPath:"/assets/images/user_favorite_singles_icon.png",title:"我已读的书籍",bindTap:"toFavBookList"}}' />
+    <template is='row-cell' data='{{iconPath:"/assets/images/user_favorite_singles_icon.png",title:"我喜欢的文章",bindTap:"toFavBookList"}}' />
     <template is='row-cell' data='{{iconPath:"/assets/images/user_favorite_cards_icon.png",title:"我喜欢的卡片",bindTap:"toFavCards"}}' />
   </view>
 
