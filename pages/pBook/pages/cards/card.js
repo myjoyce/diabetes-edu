@@ -15,7 +15,7 @@ Page({
         this.getCards()
     },
 
-    /** 获取卡片 */
+    /** 获取喜欢的卡片 */
     getCards() {
         wxCloud('getCards').then( res => {
             this.setData({

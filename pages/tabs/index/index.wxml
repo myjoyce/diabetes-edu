@@ -2,18 +2,19 @@
 <import src='/pages/common/cell/cell' />
 
 <view class="container page-user">
-  <view  bindtap="bindViewTap" class="userinfo btn-bg">
-    <view class="cell-left">
+  <view wx:if="{{canIUse}}" class="userinfo btn-bg" bindtap='bindViewTap'>
+    <button wx:if="{{!hasUserInfo}}" open-type="getUserInfo"  bindgetuserinfo="getUserInfo" class="cell-left">授权登录</button>
+    <view class="cell-left" wx:else>
       <view class="userinfo-avatar">
         <image
           wx:if='{{userInfo.avatarUrl}}'
           src="{{userInfo.avatarUrl}}" />
       </view>
-      <open-data class="userinfo-nickname" type="userNickName" lang="zh_CN"></open-data>
-    </view>
-    <view class="arrow-right"> </view>
+      <view  wx:if='{{userInfo.nickName}}' class="userinfo-nickname">{{userInfo.nickName}}</view>      
+    </view>   
+    <view  wx:if="{{hasUserInfo}}" class="arrow-right"></view>
   </view>
-
+  <view wx:else class="userinfo btn-bg">请升级微信版本</view>
   <view class='row-list'>
     <template is='row-cell' data='{{iconPath:"/assets/images/user_favorite_singles_icon.png",title:"我喜欢的文章",bindTap:"toFavBookList"}}' />
     <template is='row-cell' data='{{iconPath:"/assets/images/user_favorite_cards_icon.png",title:"我喜欢的卡片",bindTap:"toFavCards"}}' />
@@ -33,7 +34,7 @@
     <template is='row-cell' data='{{iconPath:"/assets/images/about_icon.png",title:"关于",subtitle:"v"+version.versionName,bindTap:"toAbout"}}' />
   </view>
   
-  <view class='btn-bg log-out' bindtap='logout'>
+  <view class='btn-bg log-out' bindtap='logout' wx:if="{{hasUserInfo}}">
     <text>退出登录</text>
   </view>
 

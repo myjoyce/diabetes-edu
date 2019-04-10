@@ -7,50 +7,59 @@ Page({
 
   data: {
     version: app.globalData.version,
-    userInfo: {}
+    userInfo: {},
+    hasUserInfo:false,
+    //判断小程序的API，回调，参数，组件等是否在当前版本可用。
+    canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
 
   /**
    * 进入个人资料
    */
-  bindViewTap: function() {
-    const that = this;
+  bindViewTap: function () {
     const { version, config } = app.globalData;
     if(app.globalData.userInfo) {
       if (version.versionCode > config.newestVersion) return;
       wx.navigateTo({
         url: '/pages/pUser/pages/userinfo/userinfo'
       })
-    } else {
-      wx.getSetting({
-        success: res => {
-          if(!res.authSetting['scope.userInfo']) {
-            wx.openSetting({
-              success: res => {
-                if (res.authSetting['scope.userInfo']){
-                  app.getUserInfo(userInfo => {
-                    that.setData({ userInfo })
-                  })
-                }
-              }
-            })
-          } else {
-            app.getUserInfo(userInfo => {
-              that.setData({ userInfo })
-            })
-          }
-        }
-      })
     }
   },
 
   onLoad: function () {
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo().then(userInfo => {
-      //更新数据
+    if (app.globalData.userInfo) {
       this.setData({
-        userInfo
+        userInfo: app.globalData.userInfo,
+        hasUserInfo: true
       })
+    } else if (this.data.canIUse) {
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        this.setData({
+          userInfo: res.userInfo,
+          hasUserInfo: true
+        })
+      }
+    } else {
+      // 在没有 open-type=getUserInfo 版本的兼容处理
+      wx.getUserInfo({
+        success: res => {
+          app.globalData.userInfo = res.userInfo
+          this.setData({
+            userInfo: res.userInfo,
+            hasUserInfo: true
+          })
+        }
+      })
+    }
+  },
+  getUserInfo: function (e) {
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      userInfo: e.detail.userInfo,
+      hasUserInfo: true
     })
   },
 
@@ -72,7 +81,8 @@ Page({
       success: (res) => {
         res.confirm && app.logout(() => {
           this.setData({
-            userInfo: {}
+            userInfo: {},
+            hasUserInfo:false
           })
         })
       }
@@ -108,7 +118,7 @@ Page({
   },
 
   /**
-   * 我喜欢的书籍
+   * 我喜欢的文章
    */
   toFavBookList: function() {
     const { version, config } = app.globalData;

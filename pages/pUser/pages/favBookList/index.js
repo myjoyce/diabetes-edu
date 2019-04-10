@@ -11,7 +11,7 @@ Page({
         this.getFavArticles()
     },
 
-    /** 获取喜欢的影单 */
+    /** 获取喜欢的文章 */
     getFavArticles() {
         wxCloud('getFavArticles').then( res => {
             this.setData({

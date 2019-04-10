@@ -9,11 +9,11 @@ Page({
 
     /** lifecycle */
     onLoad(options) {
-        this.getFavCards()
+        this.getCards()
     },
 
     /** get the cards user liked */
-    getFavCards() {
+    getCards() {
         wxCloud('getFavCards').then( res => {
             this.setData({
                 cards: res.data,
