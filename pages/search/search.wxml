@@ -31,7 +31,7 @@
           <view class="hotitem" wx:for='{{hotitem}}' wx:key="item" bindtap='goDetail' data-name="{{item}}">{{item}}</view>
         </view>
       </view>
-      <view wx:elif='{{pageData.length}}'>
+      <view wx:elif='{{pageData}}'>
           <view class="food_content">
             <view class="food_info">
               <view class="info_type">
