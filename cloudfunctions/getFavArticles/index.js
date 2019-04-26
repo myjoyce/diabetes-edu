@@ -8,7 +8,7 @@ cloud.init({
 const db = cloud.database()
 const _= db.command
 
-/** 获取喜欢的影单 */
+/** 获取喜欢的文章 */
 const getFavArticles = (event, context) => {
     const { userInfo: { openId } } = event
     return db.collection('userRelations').where({

@@ -8,8 +8,10 @@ cloud.init({
 const db = cloud.database()
 const _ = db.command
 
+
 /** 获取用户喜欢的卡片 */
 const getFavCards = (event, context) => {
+    
     const { userInfo: { openId } } = event
     return db.collection('userRelations').where({
         _openid: openId,
@@ -17,15 +19,10 @@ const getFavCards = (event, context) => {
         if (data.length) {
             return db.collection('cards').where({
                 id: _.in(data[0].favCards.map(item => Number(item))),
-            }).field({
-                id: true,
-                image: true,
-                quote: true,
-                source: true,
             }).get().then(({ data }) => {
                 return {
                     data,
-                    message: 'success',
+                    message: 'success11',
                 }
             }).catch(err => {
                 return Promise.reject({
@@ -35,8 +32,8 @@ const getFavCards = (event, context) => {
             })
         } else {
             return {
-                data: [],
-                message: 'success',
+                data:[],
+                message: 'success2',
             }
         }
     }).catch( err => {
