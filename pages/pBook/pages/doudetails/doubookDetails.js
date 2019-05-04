@@ -7,7 +7,7 @@ Page({
         loadidngHidden: false,
         details: {},
         pubdates: '',
-        comments_count: 0,
+        // comments_count: 0,
         comments: [],
         isFold: true
     },

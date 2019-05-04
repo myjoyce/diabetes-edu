@@ -1,14 +1,10 @@
 {
   "pages": [
-    "pages/splash/splash",
     "pages/tabs/discovery/discovery",
     "pages/tabs/index/index",
     "pages/tabs/books/books",
     "pages/setting/setting",
-    "pages/marked/marked",
     "pages/search/search",
-    "pages/about/index",
-    "pages/first/first",
     "pages/webview/index"
   ],
   "window": {
@@ -50,7 +46,8 @@
       "pages": [
         "pages/classification/index",
         "pages/list/list",
-        "pages/details/detail"
+        "pages/details/detail",
+        "pages/bannerDetails/index"
       ]
     },
     {
@@ -58,10 +55,7 @@
       "pages": [
         "pages/cards/card",
         "pages/details/bookDetails",
-        "pages/doudetails/doubookDetails",
-        "pages/intheaters/in_theaters",
-        "pages/sources/sources",
-        "pages/trailers/trailers"
+        "pages/doudetails/doubookDetails"
       ]
     },
     {

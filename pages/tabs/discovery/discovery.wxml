@@ -43,13 +43,6 @@
             data="{{date:nowDay,title:'每日书籍推荐'}}"
           />
         </navigator>
-        <navigator class='item-container' hover-class='hover-bg'
-          url='/pages/pBook/pages/intheaters/in_theaters'
-        >
-          <template is="circle" 
-            data="{{imgUrl:'/assets/images/discover_classify_cinema_icon.png',title:'书店爆款'}}"
-          />
-        </navigator>
       </view>
 
       <block wx:for="{{articles}}" wx:key='id'>
