@@ -115,10 +115,10 @@ Page({
  */
   scanCode: function (event) {
     wx.scanCode({
-      onlyFromCamera: true,
+      // onlyFromCamera: true,
       scanType: ['barCode'],
       success: res => {
-        console.log(res.result);
+        console.log(res.result+'res.result');
         wx.cloud.callFunction({
           //要调用的云函数名称
           name: 'bookinfo',
@@ -128,7 +128,7 @@ Page({
           },
           success: res => {
             var bookString = res.result;
-            //console.log(JSON.parse(bookString))
+            console.log(JSON.parse(bookString)+'JSON.parse(bookString)')
             const db = wx.cloud.database()
             const book = db.collection('mybook')
             //set price , shop
@@ -146,7 +146,7 @@ Page({
         })
       },
       fail: err => {
-        console.log(err);
+        console.log(err+'err');
       }
     })
   }

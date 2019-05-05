@@ -54,7 +54,7 @@ Page({
     const { inputVal } = this.data;
     if(!inputVal) {
       wx.showToast({
-        title: '请输出入食物名称',
+        title: '请输入食物名称',
         icon: 'none',
         duration: 1000
       });

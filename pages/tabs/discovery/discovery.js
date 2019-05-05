@@ -1,5 +1,5 @@
 // discovery
-import { Honye } from '../../../utils/apis.js'
+
 import Bing from '../../common/bing/bing.js'
 
 var app = getApp()
@@ -71,7 +71,7 @@ Page({
     // })
     const {id} = e.currentTarget.dataset;
     wx.navigateTo({
-      url: `../../pArticle/pages/details/detail?id=${id}`,
+      url: `../../pArticle/pages/bannerDetails/index?id=${id}`,
     });
   },
 

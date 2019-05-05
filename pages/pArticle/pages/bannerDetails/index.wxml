@@ -1,0 +1,49 @@
+<view>
+  <view class="header-cover" wx:if="{{news.cover}}">
+    <image mode="aspectFill" style="height:100%" src="{{news.cover}}"></image>
+    <view class="mask" data-src="{{news.cover}}" bindtap="previewImgEvent"></view>
+    <view class="desc">
+      <text>{{news.title}}</text>
+    </view>
+    <text class="cover-source">{{news.imageSource}}</text>
+  </view>
+  <view class="black-desc" wx:else>
+    <text>{{news.title}}</text>
+  </view>
+  <view style="padding-bottom: 150rpx;">
+    <block wx:if="{{news.content}}">
+      <view class="article">
+        <view class="title" wx:if="{{news.title &&  news.title != ''}}">
+          <text>{{news.title}}</text>
+        </view>
+        <view class="author-info" wx:if="{{(news.avatar &&  news.avatar != '') || (news.author &&  news.author != '') || (news.bio &&  news.bio != '')}}">
+          <image wx:if="{{news.avatar &&  news.avatar != ''}}" class="avatar" src="{{news.avatar}}"></image>
+          <text wx:if="{{news.author &&  news.author != ''}}" class="author-name">{{news.author}}</text>
+          <text wx:if="{{news.bio &&  news.bio != ''}}" class="author-mark">{{news.bio}}</text>
+        </view>
+        <view class="content" wx:if="{{news.content &&  news.content.length > 0}}">
+          <block wx:for="{{news.content}}" wx:key="index">
+            <block wx:if="{{item.type == 'p'}}">
+              <text>{{item.value}}</text>
+            </block>
+            <block wx:elif="{{item.type == 'img'}}">
+              <image mode="aspectFill" src="{{item.value}}" data-src="{{item.value}}" bindtap="previewImgEvent" />
+            </block>
+            <block wx:elif="{{item.type == 'pstrong'}}">
+              <text class="strong">{{item.value}}</text>
+            </block>
+            <block wx:elif="{{item.type == 'pem'}}">
+              <text class="em">{{item.value}}</text>
+            </block>
+            <block wx:elif="{{item.type == 'blockquote'}}">
+              <text class="qoute">{{item.value}}</text>
+            </block>
+            <block wx:else>
+              <text>{{item.value}}</text>
+            </block>
+          </block>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

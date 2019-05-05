@@ -4,7 +4,9 @@
   height: 360rpx;
   border-radius: 10rpx;
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  /* background-attachment:fixed; */
+  background-position:50% 30%;
+  background-size: cover;
   display: flex;
   align-items: flex-end;
   position: relative;

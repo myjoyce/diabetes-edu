@@ -11,7 +11,7 @@ Page({
   data: {
     details: {},
     pubdates: '',
-    comments_count: 0,
+    // comments_count: 0,
     comments: [],
     loaded: false,
     isFold: true,
@@ -66,7 +66,7 @@ Page({
         pubdates,
         casts: casts.join(' / '),
         loaded: true,
-        comments_count: book.comments_count
+        // comments_count: book.comments_count
       });
       wx.setNavigationBarTitle({
         title: res.data.title,

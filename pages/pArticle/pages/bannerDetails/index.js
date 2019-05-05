@@ -39,7 +39,7 @@ Page({
           title: 'loading...',
       });
       let _this = this;
-      db.collection('articles').doc(id).get().then(res => {
+      db.collection('banners').doc(id).get().then(res => {
 
         //   const news = res.data;
         //   let pubdates = '';
