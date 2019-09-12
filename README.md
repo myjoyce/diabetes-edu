@@ -1,2 +1,1 @@
-# 小程序之My-personal-bookcase
-毕业设计
+# 糖尿病健康教育系统开发
